@@ -1,9 +1,9 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
-      <Navigation />
+      <Navigation v-if="navigation"/>
       <router-view />
-      <Footer />
+      <Footer v-if="navigation"/>
     </div>
   </div>
 </template>
@@ -11,6 +11,9 @@
 <script>
 import Navigation from './components/Navigation.vue'
 import Footer from './components/Footer.vue'
+import RouterConstants from './constants/RouterConstants'
+import { auth } from './firebase/firebaseInit'
+import { onAuthStateChanged } from 'firebase/auth'
 export default {
   name: 'app',
   components: {
@@ -18,12 +21,38 @@ export default {
     Footer
   },
   data () {
-    return {}
+    return {
+      navigation: null
+    }
   },
-  created () { },
+  created () {
+    onAuthStateChanged(auth, (user) => {
+      this.$store.dispatch('user/updateUser', user)
+      if (user) {
+        this.$store.dispatch('user/updateProfile')
+      }
+    })
+    this.checkRouter()
+  },
   mounted () { },
-  methods: {},
-  watch: {}
+  methods: {
+    checkRouter () {
+      if (
+        this.$route.name === RouterConstants.LOGIN_VIEW_NAME ||
+        this.$route.name === RouterConstants.REGISTER_VIEW_NAME ||
+        this.$route.name === RouterConstants.FORGOT_PASSWORD_VIEW_NAME
+      ) {
+        this.navigation = false
+        return
+      }
+      this.navigation = true
+    }
+  },
+  watch: {
+    $route () {
+      this.checkRouter()
+    }
+  }
 }
 </script>
 
@@ -74,7 +103,8 @@ export default {
   }
 }
 
-button, .router-button {
+button,
+.router-button {
   transition: 500ms ease all;
   cursor: pointer;
   margin-top: 24px;
@@ -103,7 +133,7 @@ button, .router-button {
   font-weight: 500;
   background-color: transparent;
 
-  @media (min-width:$blog-post-media-min-width) {
+  @media (min-width: $blog-post-media-min-width) {
     margin-top: 0;
     margin-left: auto;
   }
@@ -125,6 +155,12 @@ button, .router-button {
   background-color: rgba(128, 128, 128, 0.5);
 }
 
+.error {
+  text-align: center;
+  font-size: 12px;
+  color: red;
+}
+
 .blog-card-wrap {
   position: relative;
   padding: 80px 16px;
@@ -133,20 +169,20 @@ button, .router-button {
     padding: 100px 16px;
   }
 
-.blog-cards {
-  display: grid;
-  gap: 32px;
-  grid-template-columns: 1fr;
+  .blog-cards {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: 1fr;
 
-  @media (min-width: $app-media-min-width) {
-    grid-template-columns: repeat(2, 1fr);
+    @media (min-width: $app-media-min-width) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 900px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (min-width: 1200px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
-  @media (min-width: 900px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (min-width: 1200px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
 }
 </style>

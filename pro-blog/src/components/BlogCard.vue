@@ -1,6 +1,6 @@
 <template>
   <div class="blog-card">
-    <div class="icons">
+    <div v-show="editPost" class="icons">
       <div class="icon">
         <BIconPencilSquare class="edit" />
       </div>
@@ -29,6 +29,11 @@ export default {
     BIconArrowRight,
     BIconTrash,
     BIconPencilSquare
+  },
+  computed: {
+    editPost () {
+      return this.$store.state.blog.editPost
+    }
   }
 }
 </script>

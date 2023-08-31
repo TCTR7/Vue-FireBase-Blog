@@ -3,24 +3,24 @@
   <header>
     <nav class="container">
       <div class="branding">
-        <router-link class="header" :to="{ name: 'home' }">ProBlog</router-link>
+        <router-link class="header" :to="{ name: RouterConstants.HOME_VIEW_NAME }">ProBlog</router-link>
       </div>
       <div class="nav-links">
         <ul v-show="!mobile">
-          <router-link class="link" to="#">Home</router-link>
-          <router-link class="link" to="#">Blogs</router-link>
+          <router-link class="link" :to="{name: RouterConstants.HOME_VIEW_NAME }">Home</router-link>
+          <router-link class="link" :to="{name: RouterConstants.BLOG_VIEW_NAME}">Blogs</router-link>
           <router-link class="link" to="#">Create Post</router-link>
-          <router-link class="link" to="#">Login/Register</router-link>
+          <router-link class="link" :to="{name: RouterConstants.LOGIN_VIEW_NAME}">Login/Register</router-link>
         </ul>
       </div>
     </nav>
     <BIconList @click="this.toggleMobileNav" v-show="mobile" class="menu-icon" />
     <transition name="mobile-nav">
       <ul class="mobile-nav" v-show="mobileNav">
-        <router-link class="link" to="#">Home</router-link>
-        <router-link class="link" to="#">Blogs</router-link>
+        <router-link class="link" :to="{name: RouterConstants.HOME_VIEW_NAME }">Home</router-link>
+        <router-link class="link" :to="{name: RouterConstants.BLOG_VIEW_NAME }">Blogs</router-link>
         <router-link class="link" to="#">Create Post</router-link>
-        <router-link class="link" to="#">Login/Register</router-link>
+        <router-link class="link" :to="{name: RouterConstants.LOGIN_VIEW_NAME}">Login/Register</router-link>
       </ul>
     </transition>
   </header>
@@ -28,6 +28,7 @@
 
 <script>
 import { BIconList } from 'bootstrap-vue'
+import RouterConstants from '../constants/RouterConstants'
 export default {
   name: 'navigation-view',
   components: {
@@ -37,7 +38,8 @@ export default {
     return {
       mobile: null,
       mobileNav: null,
-      windownWidth: null
+      windownWidth: null,
+      RouterConstants: RouterConstants
     }
   },
   created () {
