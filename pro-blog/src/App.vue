@@ -27,7 +27,7 @@ export default {
   },
   created () {
     onAuthStateChanged(auth, (user) => {
-      this.$store.dispatch('user/updateUser', user)
+      this.$store.commit('user/UPDATE_USER', user)
       if (user) {
         this.$store.dispatch('user/updateProfile')
       }

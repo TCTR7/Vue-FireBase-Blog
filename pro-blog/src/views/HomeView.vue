@@ -10,9 +10,9 @@
         </div>
       </div>
     </div>
-    <div class="updates">
+    <div v-if="!user" class="updates">
       <div class="container">
-        <h2>never mis a post. Register for your free account today!</h2>
+        <h2>never miss a post. Register for your free account today!</h2>
         <router-link class="router-button" to="#">
           Register for ProBlogs <BIconArrowRight class="arrow arrow-light" />
         </router-link>
@@ -23,8 +23,9 @@
 
 <script>
 import { BIconArrowRight } from 'bootstrap-vue'
-import BlogPost from '../components/BlogPost.vue'
-import BlogCard from '../components/BlogCard.vue'
+import BlogPost from '@/components/BlogPost.vue'
+import BlogCard from '@/components/BlogCard.vue'
+import { mapState } from 'vuex'
 export default {
   name: 'home-view',
   components: {
@@ -55,9 +56,10 @@ export default {
     }
   },
   computed: {
-    sampleBlogCards () {
-      return this.$store.state.sampleBlogCards
-    }
+    ...mapState({
+      user: state => state.user.user,
+      sampleBlogCards: state => state.blog.sampleBlogCards
+    })
   }
 }
 </script>

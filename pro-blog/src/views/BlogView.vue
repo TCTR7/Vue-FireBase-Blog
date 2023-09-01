@@ -1,7 +1,7 @@
 <template>
   <div class="blog-card-wrap">
     <div class="blog-cards container">
-      <div class="toggle-edit">
+      <div v-if="user" class="toggle-edit">
         <span>Toggle Editing Post</span>
         <input type="checkbox" v-model="editPost" />
       </div>
@@ -12,15 +12,17 @@
 
 <script>
 import BlogCard from '../components/BlogCard.vue'
+import { mapState } from 'vuex'
 export default {
   name: 'blog-view',
   components: {
     BlogCard
   },
   computed: {
-    sampleBlogCards () {
-      return this.$store.state.blog.sampleBlogCards
-    },
+    ...mapState({
+      user: state => state.user.user,
+      sampleBlogCards: state => state.blog.sampleBlogCards
+    }),
     editPost: {
       get () {
         return this.$store.state.blog.editPost
@@ -37,6 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../public/assets/scss/common.scss";
 .blog-cards {
   position: relative;
 
@@ -60,8 +63,7 @@ export default {
       width: 80px;
       height: 30px;
       border-radius: 20px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      box-shadow: $box-shadow;
     }
 
     input[type="checkbox"]::before {
@@ -75,8 +77,7 @@ export default {
       background: #303030;
       transform: scale(1.1);
       transition: 750ms ease all;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      box-shadow: $box-shadow;
     }
 
     input:checked[type="checkbox"]::before {

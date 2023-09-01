@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-wrapper no-user">
+  <div class="blog-wrapper" :class="{ 'no-user': !user }">
     <div class="blog-content">
       <div>
         <h2 v-if="post.welcomeScreen">{{ post.title }}</h2>
@@ -25,11 +25,17 @@
 
 <script>
 import { BIconArrowRight } from 'bootstrap-vue'
+import { mapState } from 'vuex'
 export default {
   name: 'blog-post',
   props: ['post'],
   components: {
     BIconArrowRight
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user.user
+    })
   }
 }
 </script>
@@ -40,8 +46,7 @@ export default {
 .blog-wrapper {
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: $box-shadow;
 
   @media (min-width: $blog-post-media-min-width) {
     min-height: 650px;
@@ -119,8 +124,7 @@ export default {
   .blog-photo {
     order: 1;
     flex: 3;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: $box-shadow;
 
     @media (min-width: $blog-post-media-min-width) {
       order: 2;

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="left">
         <div class="col-1">
-          <router-link class="header" :to="{ name: 'home'}">ProBlog</router-link>
+          <router-link class="header" :to="{ name: RouterConstants.HOME_VIEW_NAME}">ProBlog</router-link>
           <ul>
             <li>
               <a href="#">
@@ -29,10 +29,10 @@
         </div>
         <div class="col-2">
           <ul>
-            <router-link class="link" :to="{ name: 'home'}">Home</router-link>
-            <router-link class="link" :to="{ name: 'blogs'}">Blogs</router-link>
+            <router-link class="link" :to="{ name: RouterConstants.HOME_VIEW_NAME }">Home</router-link>
+            <router-link class="link" :to="{ name: RouterConstants.BLOG_VIEW_NAME}">Blogs</router-link>
             <router-link v-if="user" class="link" :to="{ name: 'newpost'}">Create Post</router-link>
-            <router-link v-if="!user" class="link" :to="{ name: 'login'}">Login / Register</router-link>
+            <router-link v-if="!user" class="link" :to="{ name: RouterConstants.LOGIN_VIEW_NAME}">Login / Register</router-link>
           </ul>
         </div>
       </div>
@@ -50,6 +50,8 @@ import {
   BIconInstagram,
   BIconLinkedin
 } from 'bootstrap-vue'
+import { mapState } from 'vuex'
+import RouterConstants from '@/constants/RouterConstants'
 export default {
   name: 'footer-view',
   components: {
@@ -60,8 +62,13 @@ export default {
   },
   data () {
     return {
-      user: null
+      RouterConstants: RouterConstants
     }
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user.user
+    })
   }
 }
 </script>

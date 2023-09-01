@@ -47,6 +47,22 @@ const routes = [
     }
   },
   {
+    path: `/${RouterConstants.PROFILE_VIEW_NAME.toLowerCase()}`,
+    name: RouterConstants.PROFILE_VIEW_NAME,
+    component: () => import('../views/ProfileView.vue'),
+    meta: {
+      title: RouterConstants.PROFILE_VIEW_NAME
+    }
+  },
+  {
+    path: `/${RouterConstants.ADMIN_VIEW_NAME.toLowerCase()}`,
+    name: RouterConstants.ADMIN_VIEW_NAME,
+    component: () => import('../views/AdminView.vue'),
+    meta: {
+      title: RouterConstants.ADMIN_VIEW_NAME
+    }
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting

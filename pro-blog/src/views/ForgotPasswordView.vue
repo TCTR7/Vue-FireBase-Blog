@@ -26,11 +26,11 @@
 
 <script>
 import { BIconEnvelope } from 'bootstrap-vue'
-import Modal from '../components/Modal.vue'
-import Loading from '../components/Loading.vue'
-import RouterConstants from '../constants/RouterConstants'
-import { resetUserPassword } from '../firebase/firebaseUtil'
-import MessageConstants from '../constants/MessageConstants'
+import Modal from '@/components/Modal.vue'
+import Loading from '@/components/Loading.vue'
+import RouterConstants from '@/constants/RouterConstants'
+import { resetUserPassword } from '@/firebase/firebaseUtil'
+import MessageConstants from '@/constants/MessageConstants'
 export default {
   name: 'forgot-pasword-view',
   components: {

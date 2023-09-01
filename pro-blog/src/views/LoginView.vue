@@ -28,7 +28,7 @@
 <script>
 import RouterConstants from '@/constants/RouterConstants'
 import { BIconEnvelope, BIconLockFill } from 'bootstrap-vue'
-import { signInUser } from '../firebase/firebaseUtil'
+import { signInUser } from '@/firebase/firebaseUtil'
 export default {
   name: 'login-view',
   components: {
